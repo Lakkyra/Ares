@@ -27,8 +27,6 @@ dist/
 build/
 *.egg-info/
 
-# Docs (internal reference only)
-docs/
 
 # Docker
 *.log

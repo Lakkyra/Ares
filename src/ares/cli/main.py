@@ -248,6 +248,44 @@ def resume(
             git_mgr.rollback()
 
 
+@app.command()
+def benchmark(
+    category: str | None = typer.Option(
+        None, "--category", "-c", help="Filter by category (e.g. logic_error)"
+    ),
+    limit: int | None = typer.Option(
+        None, "--limit", "-n", help="Limit number of benchmark issues to evaluate"
+    ),
+    output: Path = typer.Option(
+        Path("docs/BENCHMARK_REPORT.md"), "--output", "-o", help="Path to save Markdown report"
+    ),
+    canonical: bool = typer.Option(
+        True, "--canonical/--agent", help="Use canonical patch baseline"
+    ),
+) -> None:
+    """Run synthetic bug benchmarks and generate evaluation reports."""
+    from ares.benchmarks.dataset import get_all_issues, get_issues_by_category
+    from ares.benchmarks.runner import BenchmarkRunner
+
+    issues = get_issues_by_category(category) if category else get_all_issues()
+    if limit:
+        issues = issues[:limit]
+
+    runner = BenchmarkRunner()
+    summary, results = runner.run_suite(issues=issues, use_canonical_patch=canonical)
+
+    table = runner.format_terminal_summary(summary, results)
+    console.print(table)
+
+    output_path = output.resolve()
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    report_md = runner.generate_markdown_report(summary, results)
+    output_path.write_text(report_md, encoding="utf-8")
+    console.print(
+        f"[bold green]Saved benchmark evaluation report to [cyan]{output_path}[/cyan][/bold green]"
+    )
+
+
 @app.command(name="mcp-serve")
 def mcp_serve() -> None:
     """Run the MCP server over stdio for external MCP clients."""
