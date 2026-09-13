@@ -92,26 +92,26 @@
 **Goal:** Build the LangGraph state machine with all agent nodes and routing logic.
 
 ### Deliverables
-- [ ] Define `AgentState` TypedDict/Pydantic model with all required fields
-- [ ] Implement **Triage Agent** node:
+- [x] Define `AgentState` TypedDict/Pydantic model with all required fields
+- [x] Implement **Triage Agent** node:
   - Analyzes issue description
   - Uses `search_codebase` and `list_directory` to identify candidate files
   - Outputs hypotheses and ranked file list
-- [ ] Implement **Coder Agent** node:
+- [x] Implement **Coder Agent** node:
   - Reads file context via `read_file_context`
   - Generates search-and-replace patch blocks
   - Applies patches via `apply_search_replace`
-- [ ] Implement **Evaluator Agent** node:
+- [x] Implement **Evaluator Agent** node:
   - Triggers test execution (placeholder — sandbox in Phase 3)
   - Classifies failures: `code_bug` | `environment_error` | `timeout` | `flaky_test`
   - Constructs error context for retry prompt
-- [ ] Implement **conditional routing edges**:
+- [x] Implement **conditional routing edges**:
   - `test_exit_code != 0 AND iteration_count < max_iterations` → route to Coder
   - `test_exit_code == 0` → route to Human Approval
   - `iteration_count >= max_iterations` → route to failure terminal
-- [ ] Wire up LangGraph `StateGraph` with all nodes and edges
-- [ ] Configure PostgreSQL checkpointer for state persistence
-- [ ] Write integration test: full graph traversal with mocked LLM responses
+- [x] Wire up LangGraph `StateGraph` with all nodes and edges
+- [x] Configure PostgreSQL checkpointer for state persistence
+- [x] Write integration test: full graph traversal with mocked LLM responses
 
 ### Exit Criteria
 ✅ Graph executes end-to-end with mocked LLM and tools  
