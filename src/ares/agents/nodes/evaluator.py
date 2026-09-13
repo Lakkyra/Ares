@@ -5,12 +5,19 @@ from collections.abc import Callable
 from typing import Any
 
 from ares.agents.state import AgentState
+from ares.sandbox.manager import default_sandbox
 
 TestRunnerFunc = Callable[[str, str], tuple[int, str, str]]
 
 
-def default_subprocess_runner(command: str, repo_path: str) -> tuple[int, str, str]:
-    """Run test command in local subprocess."""
+def default_runner(command: str, repo_path: str) -> tuple[int, str, str]:
+    """Execute test command using Docker sandbox if available, or local subprocess."""
+    if default_sandbox.is_available():
+        test_target = command.replace("pytest", "").strip()
+        res = default_sandbox.run_pytest(test_target=test_target, repo_path=repo_path)
+        return res.exit_code, res.stdout, res.stderr
+
+    # Fallback to local subprocess if Docker daemon is offline
     try:
         proc = subprocess.run(
             command,
@@ -34,7 +41,7 @@ def evaluator_node(
     """Execute tests and classify failure characteristics."""
     command = state.get("test_command", "pytest")
     repo_path = state.get("repo_path", ".")
-    runner = test_runner or default_subprocess_runner
+    runner = test_runner or default_runner
 
     exit_code, stdout, stderr = runner(command, repo_path)
 
@@ -44,7 +51,6 @@ def evaluator_node(
     if exit_code == 0:
         resolution = "resolved"
     else:
-        # Classify failure
         combined_err = f"{stdout}\n{stderr}".lower()
         if exit_code == 124 or "timed out" in combined_err:
             failure_cat = "timeout"

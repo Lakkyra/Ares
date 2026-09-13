@@ -9,6 +9,10 @@ from pathlib import Path
 from pydantic import BaseModel, Field
 
 from ares.mcp_server.security import PathTraversalError, validate_path
+from ares.sandbox.manager import default_sandbox
+from ares.sandbox.models import SandboxExecutionResult
+
+MAX_FILE_SIZE_BYTES = 5 * 1024 * 1024  # 5 MB max file read guard
 
 IGNORED_DIRS = {
     ".git",
@@ -153,6 +157,22 @@ def read_file_context(
             size_bytes=0,
             error=f"Target path is a directory, not a file: '{file_path}'",
         )
+
+    # File size limit guard
+    try:
+        file_size = target.stat().st_size
+        if file_size > MAX_FILE_SIZE_BYTES:
+            return ReadFileResult(
+                file_path=str(file_path),
+                content="",
+                start_line=0,
+                end_line=0,
+                total_lines=0,
+                size_bytes=file_size,
+                error=f"File exceeds maximum allowed read size (5MB): {file_size} bytes",
+            )
+    except Exception:
+        pass
 
     # Detect binary files
     try:
@@ -511,4 +531,36 @@ def search_codebase(
         query=query,
         matches=matches,
         total_matches=len(matches),
+    )
+
+
+def run_sandbox_pytest(
+    test_target: str = "",
+    timeout_seconds: int = 30,
+    repo_path: str | Path = ".",
+) -> SandboxExecutionResult:
+    """Execute pytest inside an isolated, network-disabled Docker sandbox container.
+
+    Args:
+        test_target: Specific test file or method (e.g. 'tests/test_math.py::test_add').
+        timeout_seconds: Maximum allowed container runtime before SIGKILL.
+        repo_path: Target repository to mount and test.
+
+    Returns:
+        SandboxExecutionResult containing stdout, stderr, exit code, and duration.
+    """
+    try:
+        target = validate_path(repo_path, repo_path)
+    except PathTraversalError as e:
+        return SandboxExecutionResult(
+            stdout="",
+            stderr=str(e),
+            exit_code=1,
+            error=str(e),
+        )
+
+    return default_sandbox.run_pytest(
+        test_target=test_target,
+        repo_path=target,
+        timeout_seconds=timeout_seconds,
     )

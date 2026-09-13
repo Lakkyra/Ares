@@ -125,22 +125,22 @@
 **Goal:** Implement secure, isolated test execution and safety boundaries.
 
 ### Deliverables
-- [ ] Implement `run_sandbox_pytest` MCP tool:
+- [x] Implement `run_sandbox_pytest` MCP tool:
   - Builds/pulls sandbox Docker image
   - Mounts repository as read-only volume
   - Copies patched files into writable overlay
   - Executes test command with `--network=none`
   - Enforces timeout, CPU, and memory limits
   - Captures and returns `{ stdout, stderr, exit_code, duration_ms }`
-- [ ] Implement container lifecycle management:
+- [x] Implement container lifecycle management:
   - Auto-cleanup of exited containers
   - Graceful kill on timeout (SIGTERM → SIGKILL)
-- [ ] Add input validation to all MCP tool parameters:
+- [x] Add input validation to all MCP tool parameters:
   - Path traversal prevention (no `../` escapes)
   - Maximum file size limits for reads
   - Argument schema validation
-- [ ] Integrate sandbox tool into the Evaluator Agent node
-- [ ] Write security test suite:
+- [x] Integrate sandbox tool into the Evaluator Agent node
+- [x] Write security test suite:
   - Verify no network access from sandbox
   - Verify file system isolation
   - Verify timeout enforcement

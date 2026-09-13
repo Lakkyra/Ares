@@ -8,6 +8,7 @@ from ares.mcp_server.tools import (
     apply_search_replace,
     list_directory,
     read_file_context,
+    run_sandbox_pytest,
     search_codebase,
 )
 
@@ -83,6 +84,25 @@ def create_mcp_server(name: str = "ares-code-tools") -> MCPServer:
             return f"No matches found for query '{query}'."
         lines = [f"{m.file_path}:{m.line_number}: {m.line_content}" for m in res.matches]
         return "\n".join(lines)
+
+    @server.tool(
+        name="run_sandbox_pytest",
+        description="Execute pytest inside an isolated, network-disabled Docker sandbox.",
+    )
+    def tool_run_pytest(
+        test_target: str = "",
+        timeout_seconds: int = 30,
+        repo_path: str = ".",
+    ) -> str:
+        res = run_sandbox_pytest(test_target, timeout_seconds, repo_path)
+        if res.error:
+            return f"Sandbox Error: {res.error}"
+        status = "PASSED" if res.exit_code == 0 else f"FAILED (exit code {res.exit_code})"
+        return (
+            f"Test Execution {status} in {res.duration_ms}ms\n"
+            f"--- STDOUT ---\n{res.stdout}\n"
+            f"--- STDERR ---\n{res.stderr}"
+        )
 
     return server
 

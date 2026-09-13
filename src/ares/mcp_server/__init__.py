@@ -20,6 +20,7 @@ from ares.mcp_server.tools import (
     apply_search_replace,
     list_directory,
     read_file_context,
+    run_sandbox_pytest,
     search_codebase,
 )
 
@@ -44,4 +45,5 @@ __all__ = [
     "apply_search_replace",
     "list_directory",
     "search_codebase",
+    "run_sandbox_pytest",
 ]
