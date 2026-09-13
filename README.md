@@ -115,7 +115,7 @@ Edge Case             5        5          100.0%        [????????????????????] 1
 Total Suite           25       25         100.0%        [????????????????????] 100%
 ```
 
-*For complete benchmark documentation and per-issue breakdown, see [docs/BENCHMARK_REPORT.md](docs/BENCHMARK_REPORT.md).*
+*For complete benchmark documentation and per-issue breakdown, see [BENCHMARK_REPORT.md](BENCHMARK_REPORT.md).*
 
 ---
 
@@ -261,8 +261,8 @@ Ares/
 ## Documentation
 
 - [ARCHITECTURE.md](ARCHITECTURE.md) ? In-depth architecture specification and design decisions.
-- [docs/BENCHMARK_REPORT.md](docs/BENCHMARK_REPORT.md) ? Complete 25-issue benchmark metrics and analysis.
-- [docs/PORTFOLIO_GUIDE.md](docs/PORTFOLIO_GUIDE.md) ? Resume bullet points, STAR stories, and interview preparation.
+- [BENCHMARK_REPORT.md](BENCHMARK_REPORT.md) ? Complete 25-issue benchmark metrics and analysis.
+- [PORTFOLIO_GUIDE.md](PORTFOLIO_GUIDE.md) ? Resume bullet points, STAR stories, and interview preparation.
 - [PHASES.md](PHASES.md) ? Full multi-phase project execution history and deliverables.
 
 ---

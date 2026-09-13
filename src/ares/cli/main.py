@@ -257,7 +257,7 @@ def benchmark(
         None, "--limit", "-n", help="Limit number of benchmark issues to evaluate"
     ),
     output: Path = typer.Option(
-        Path("docs/BENCHMARK_REPORT.md"), "--output", "-o", help="Path to save Markdown report"
+        Path("BENCHMARK_REPORT.md"), "--output", "-o", help="Path to save Markdown report"
     ),
     canonical: bool = typer.Option(
         True, "--canonical/--agent", help="Use canonical patch baseline"

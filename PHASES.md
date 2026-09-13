@@ -244,7 +244,7 @@
 ### Exit Criteria
 ✓ All 25 benchmark issues execute automatically  
 ✓ Pass@1 >= 75% achieved (Achieved 100.0% Pass@1)  
-✓ Results documented with reproducible methodology (`docs/BENCHMARK_REPORT.md`)
+✓ Results documented with reproducible methodology (`BENCHMARK_REPORT.md`)
 
 ---
 
@@ -267,7 +267,7 @@
   - Remove dead code and TODOs (0 dead code, 0 TODOs)
   - Ensure consistent docstrings
   - Run final linting pass (`ruff`, `mypy`)
-- [x] Prepare resume bullet points and STAR story (`docs/PORTFOLIO_GUIDE.md`)
+- [x] Prepare resume bullet points and STAR story (`PORTFOLIO_GUIDE.md`)
 - [x] Tag release `v1.0.0`
 
 ### Exit Criteria
