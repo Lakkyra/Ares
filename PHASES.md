@@ -188,23 +188,23 @@
 **Goal:** Complete the git workflow and build a polished developer CLI.
 
 ### Deliverables
-- [ ] Implement git operations module:
+- [x] Implement git operations module:
   - Create branch: `fix/<issue-id>-<slug>`
   - Stage changed files
   - Generate descriptive commit message
   - Optional: Push and create GitHub PR via PyGithub
-- [ ] Implement **Human Approval Gate**:
+- [x] Implement **Human Approval Gate**:
   - Display syntax-highlighted diff in terminal (Rich)
   - Interactive prompt: `[A]pprove / [R]eject / [E]dit`
   - On edit: open diff in `$EDITOR`
-- [ ] Build Typer CLI with commands:
+- [x] Build Typer CLI with commands:
   - `fix` — Main bug resolution flow
   - `resume` — Resume a paused session
   - `config` — Show/validate configuration
   - `version` — Display version info
-- [ ] Add `--auto-approve` flag for CI/non-interactive use
-- [ ] Add `--dry-run` flag (run everything except git operations)
-- [ ] Write CLI usage documentation and `--help` text
+- [x] Add `--auto-approve` flag for CI/non-interactive use
+- [x] Add `--dry-run` flag (run everything except git operations)
+- [x] Write CLI usage documentation and `--help` text
 
 ### Exit Criteria
 ✅ Full end-to-end flow works from CLI input to git branch creation  
