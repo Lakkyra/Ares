@@ -1,0 +1,28 @@
+FROM python:3.11-slim
+
+LABEL description="Isolated sandbox environment for executing tests and code repair validation in Ares"
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+# Install minimal build tools and git
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    build-essential \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create unprivileged sandbox user
+RUN useradd -m -u 1000 -s /bin/bash sandboxuser
+
+# Set up working directory
+WORKDIR /workspace
+RUN chown -R sandboxuser:sandboxuser /workspace
+
+# Install common test runners into base container python
+RUN pip install --no-cache-dir pytest pytest-cov pytest-asyncio
+
+USER sandboxuser
+
+CMD ["pytest"]

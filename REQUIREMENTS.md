@@ -140,6 +140,7 @@
 ```python
 from typing import TypedDict, List, Optional, Literal
 
+
 class AgentState(TypedDict):
     # Input
     issue_description: str
@@ -171,22 +172,22 @@ class AgentState(TypedDict):
 ```python
 # read_file_context
 {
-    "file_path": str,       # Absolute or repo-relative path
-    "start_line": int,      # 1-indexed, inclusive
-    "end_line": int          # 1-indexed, inclusive
+    "file_path": str,  # Absolute or repo-relative path
+    "start_line": int,  # 1-indexed, inclusive
+    "end_line": int,  # 1-indexed, inclusive
 }
 
 # apply_search_replace
 {
     "file_path": str,
-    "search_block": str,    # Exact text to find (whitespace-sensitive)
-    "replace_block": str     # Replacement text
+    "search_block": str,  # Exact text to find (whitespace-sensitive)
+    "replace_block": str,  # Replacement text
 }
 
 # run_sandbox_pytest
 {
-    "test_target": str,      # e.g., "tests/test_auth.py::test_login"
-    "timeout_seconds": int   # default: 60
+    "test_target": str,  # e.g., "tests/test_auth.py::test_login"
+    "timeout_seconds": int,  # default: 60
 }
 ```
 

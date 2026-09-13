@@ -31,8 +31,8 @@
 **Goal:** Establish a clean, reproducible project foundation.
 
 ### Deliverables
-- [ ] Initialize Python project with `pyproject.toml` (using `uv` or `poetry`)
-- [ ] Set up directory structure:
+- [x] Initialize Python project with `pyproject.toml` (using `uv` or `poetry`)
+- [x] Set up directory structure:
   ```
   src/
   ├── agents/          # LangGraph agent nodes
@@ -47,11 +47,11 @@
   ├── integration/
   └── benchmarks/
   ```
-- [ ] Configure development tooling: `ruff` (linting), `mypy` (type checking), `pytest`
-- [ ] Create `docker-compose.yml` for local PostgreSQL (LangGraph checkpointer)
-- [ ] Create `Dockerfile.sandbox` for test execution container
-- [ ] Set up `.env.example` with all required environment variables
-- [ ] Write initial `README.md` with setup instructions
+- [x] Configure development tooling: `ruff` (linting), `mypy` (type checking), `pytest`
+- [x] Create `docker-compose.yml` for local PostgreSQL (LangGraph checkpointer)
+- [x] Create `Dockerfile.sandbox` for test execution container
+- [x] Set up `.env.example` with all required environment variables
+- [x] Write initial `README.md` with setup instructions
 
 ### Exit Criteria
 ✅ `pytest` runs and passes with a single placeholder test  
