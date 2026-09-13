@@ -1,5 +1,6 @@
 """FastMCP server definition and programmatic tool dispatcher for Ares."""
 
+import time
 from typing import Any
 
 from mcp.server.mcpserver import MCPServer
@@ -11,6 +12,7 @@ from ares.mcp_server.tools import (
     run_sandbox_pytest,
     search_codebase,
 )
+from ares.observability.tracer import default_tracer
 
 
 def create_mcp_server(name: str = "ares-code-tools") -> MCPServer:
@@ -116,10 +118,26 @@ async def execute_mcp_tool(
     arguments: dict[str, Any],
     server: MCPServer | None = None,
 ) -> Any:
-    """Execute an MCP tool programmatically and return the result content."""
+    """Execute an MCP tool programmatically, recording execution telemetry."""
     srv = server or mcp_server
-    result = await srv.call_tool(tool_name, arguments)
-    return result
+    start = time.perf_counter()
+    error_msg = None
+    success = True
+    try:
+        result = await srv.call_tool(tool_name, arguments)
+        return result
+    except Exception as e:
+        success = False
+        error_msg = str(e)
+        raise
+    finally:
+        dur_ms = int((time.perf_counter() - start) * 1000)
+        default_tracer.record_tool_call(
+            tool_name=tool_name,
+            duration_ms=dur_ms,
+            success=success,
+            error=error_msg,
+        )
 
 
 async def run_server_stdio() -> None:

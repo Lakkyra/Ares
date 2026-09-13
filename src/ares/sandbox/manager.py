@@ -7,11 +7,11 @@ import time
 from pathlib import Path
 from typing import Any
 
-from ares.config.settings import settings
-from ares.sandbox.models import SandboxExecutionResult
-
 import docker
 from docker.errors import DockerException
+
+from ares.config.settings import settings
+from ares.sandbox.models import SandboxExecutionResult
 
 IGNORED_ARCHIVE_DIRS = {
     ".git",

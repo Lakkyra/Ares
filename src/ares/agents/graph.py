@@ -15,6 +15,7 @@ from ares.agents.nodes.evaluator import TestRunnerFunc, evaluator_node
 from ares.agents.nodes.triage import triage_node
 from ares.agents.routing import route_evaluator
 from ares.agents.state import AgentState
+from ares.observability.tracer import default_tracer
 
 
 def build_repair_graph(
@@ -78,6 +79,14 @@ def run_repair_workflow(
 ) -> AgentState:
     """Execute the repair graph to completion or interruption."""
     graph = build_repair_graph(checkpointer=checkpointer, llm=llm, test_runner=test_runner)
-    config: RunnableConfig = {"configurable": {"thread_id": thread_id}}
+    callbacks = []
+    cb = default_tracer.get_callback_handler(session_id=thread_id)
+    if cb is not None:
+        callbacks.append(cb)
+
+    config: RunnableConfig = {
+        "configurable": {"thread_id": thread_id},
+        "callbacks": callbacks,
+    }
     result = graph.invoke(initial_state, config=config)
     return cast(AgentState, result)

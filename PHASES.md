@@ -158,23 +158,23 @@
 **Goal:** Instrument the entire system with production-grade tracing and cost analytics.
 
 ### Deliverables
-- [ ] Integrate Langfuse Python SDK into the agent runtime
-- [ ] Instrument LLM calls:
+- [x] Integrate Langfuse Python SDK into the agent runtime
+- [x] Instrument LLM calls:
   - Prompt/completion token counts
   - Model name, temperature, latency
   - Input/output content (with optional redaction)
-- [ ] Instrument tool calls:
+- [x] Instrument tool calls:
   - Tool name, arguments, return value summary
   - Execution duration
   - Success/failure status
-- [ ] Instrument graph transitions:
+- [x] Instrument graph transitions:
   - Node entry/exit timestamps
   - Routing decisions and conditions
-- [ ] Add session-level metadata:
+- [x] Add session-level metadata:
   - `session_id`, `repo_name`, `issue_id`, `resolution_status`
-- [ ] Implement end-of-session cost summary:
+- [x] Implement end-of-session cost summary:
   - Total tokens, estimated cost, total duration, iterations used
-- [ ] Verify traces appear correctly in Langfuse dashboard
+- [x] Verify traces appear correctly in Langfuse dashboard
 
 ### Exit Criteria
 ✅ Full session trace visible in Langfuse with all spans  
