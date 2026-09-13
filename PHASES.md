@@ -65,20 +65,20 @@
 **Goal:** Build a fully functional FastMCP server with all required code interaction tools.
 
 ### Deliverables
-- [ ] Implement `FastMCP` server with JSON-RPC 2.0 over stdio transport
-- [ ] Implement tool: `read_file_context(file_path, start_line, end_line)`
+- [x] Implement `FastMCP` server with JSON-RPC 2.0 over stdio transport
+- [x] Implement tool: `read_file_context(file_path, start_line, end_line)`
   - Returns file content with line numbers and metadata
   - Handles file-not-found and permission errors gracefully
-- [ ] Implement tool: `apply_search_replace(file_path, search_block, replace_block)`
+- [x] Implement tool: `apply_search_replace(file_path, search_block, replace_block)`
   - Exact whitespace matching
   - Fails on ambiguous matches (multiple occurrences)
   - Returns applied diff as confirmation
-- [ ] Implement tool: `list_directory(path, recursive, max_depth)`
+- [x] Implement tool: `list_directory(path, recursive, max_depth)`
   - Returns structured directory tree
-- [ ] Implement tool: `search_codebase(query, file_pattern, max_results)`
+- [x] Implement tool: `search_codebase(query, file_pattern, max_results)`
   - Uses ripgrep subprocess for fast full-text search
-- [ ] Write comprehensive unit tests for each tool (including edge cases)
-- [ ] Test MCP server end-to-end with a simple MCP client
+- [x] Write comprehensive unit tests for each tool (including edge cases)
+- [x] Test MCP server end-to-end with a simple MCP client
 
 ### Exit Criteria
 ✅ All 4 tools pass unit tests with >90% edge case coverage  

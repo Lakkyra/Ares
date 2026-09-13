@@ -39,3 +39,10 @@ wandb/
 
 # Langfuse local
 .langfuse/
+
+# Pytest & Coverage
+.coverage
+.pytest_cache/
+htmlcov/
+.mypy_cache/
+.ruff_cache/

@@ -1,5 +1,7 @@
 """Ares CLI entrypoint."""
 
+import asyncio
+
 import typer
 from rich.console import Console
 from rich.panel import Panel
@@ -58,6 +60,15 @@ def config() -> None:
     console.print(f"[bold]Fallback Model:[/bold] {settings.fallback_model}")
     console.print(f"[bold]Postgres DSN:[/bold] {settings.postgres_dsn}")
     console.print(f"[bold]Sandbox Image:[/bold] {settings.sandbox_image}")
+
+
+@app.command(name="mcp-serve")
+def mcp_serve() -> None:
+    """Run the MCP server over stdio for external MCP clients."""
+    from ares.mcp_server.server import run_server_stdio
+
+    console.print("[bold cyan]Starting Ares MCP server over stdio...[/bold cyan]")
+    asyncio.run(run_server_stdio())
 
 
 if __name__ == "__main__":
